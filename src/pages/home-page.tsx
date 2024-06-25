@@ -24,13 +24,11 @@ export default function HomePage() {
   const folders = ["All", ...uniqueFolders];
 
   const pinnedItems = localItems.filter((item) => item.pinned);
-  const unPinnedItems = localItems.filter((item) => !item.pinned);
 
-  const filteredItems = localItems.filter(
-    (item) => item.folder === activeFolder
-  );
+  const [items, setItems] = useState(localItems);
 
-  const [items, setItems] = useState(unPinnedItems);
+  console.log(items);
+  console.log(localItems);
 
   return (
     <>
@@ -63,7 +61,7 @@ export default function HomePage() {
               </>
             )}
 
-            {unPinnedItems.length > 0 && (
+            {localItems.filter((item) => !item.pinned).length > 0 && (
               <>
                 {pinnedItems.length > 0 && (
                   <p className="mt-6 pl-2.5 text-gray-400 text-sm">
@@ -78,23 +76,27 @@ export default function HomePage() {
                     layoutScroll
                     onReorder={setItems}
                   >
-                    {items.map((item) => (
-                      <Reorder.Item
-                        key={item.id}
-                        value={item}
-                        id={item.id}
-                        dragElastic={{ top: 0.01, bottom: 0.01 }}
-                        dragConstraints={{ top: -40, bottom: 40 }}
-                        onDragEnd={() => setLocalItems(items)}
-                        style={{ position: "relative" }}
-                      >
-                        <Item
-                          item={item}
-                          deleteItem={deleteItem}
-                          setActiveFolder={setActiveFolder}
-                        />
-                      </Reorder.Item>
-                    ))}
+                    {items
+                      .filter((item) => !item.pinned)
+                      .map((item) => (
+                        <Reorder.Item
+                          key={item.id}
+                          value={item}
+                          id={item.id}
+                          dragElastic={{ top: 0.01, bottom: 0.01 }}
+                          dragConstraints={{ top: -40, bottom: 40 }}
+                          onDragEnd={() =>
+                            setLocalItems([...pinnedItems, ...items])
+                          }
+                          style={{ position: "relative" }}
+                        >
+                          <Item
+                            item={item}
+                            deleteItem={deleteItem}
+                            setActiveFolder={setActiveFolder}
+                          />
+                        </Reorder.Item>
+                      ))}
                   </Reorder.Group>
                 </div>
               </>
@@ -102,16 +104,19 @@ export default function HomePage() {
           </>
         ) : (
           <>
-            {filteredItems.length > 0 && (
+            {localItems.filter((item) => item.folder === activeFolder).length >
+              0 && (
               <div className="flex flex-col gap-2">
-                {filteredItems.map((item) => (
-                  <Item
-                    key={item.id}
-                    item={item}
-                    deleteItem={deleteItem}
-                    setActiveFolder={setActiveFolder}
-                  />
-                ))}
+                {localItems
+                  .filter((item) => item.folder === activeFolder)
+                  .map((item) => (
+                    <Item
+                      key={item.id}
+                      item={item}
+                      deleteItem={deleteItem}
+                      setActiveFolder={setActiveFolder}
+                    />
+                  ))}
               </div>
             )}
           </>

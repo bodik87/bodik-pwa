@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function Item({ item, deleteItem, setActiveFolder }: Props) {
-  const handleDeleteAllItems = (id: string) => {
+  const handleDeleteItems = (id: string) => {
     if (confirm("Do you really want to delete item?") == true) {
       deleteItem(id);
       if (setActiveFolder !== undefined) {
@@ -71,7 +71,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
         className="w-full rounded-xl flex justify-end items-center"
       >
         <button
-          onClick={() => handleDeleteAllItems(item.id)}
+          onClick={() => handleDeleteItems(item.id)}
           className="text-red-600 flex justify-center items-center w-[50px] h-[65px]"
         >
           <Trash />
