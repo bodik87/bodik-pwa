@@ -8,8 +8,8 @@ export default function BottomPanel() {
   const settingsPage = location.pathname === routes.settings;
 
   return (
-    <footer className="max-w-md w-full mx-auto fixed bottom-4 inset-x-4 h-14 bg-gray-100 rounded-full">
-      <div className="wrapper flex justify-around items-center z-10">
+    <footer className="fixed bottom-4 inset-x-4 max-w-md mx-auto h-14 bg-gray-100 rounded-full">
+      <div className="flex justify-around items-center z-10">
         <Link
           to={routes.home}
           className={`h-14 w-full flex items-center justify-center active:scale-95 transition-all`}
