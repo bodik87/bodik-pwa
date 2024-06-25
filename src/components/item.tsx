@@ -4,12 +4,16 @@ import { ItemProps } from "../lib/types";
 type Props = {
   item: ItemProps;
   deleteItem: (id: string) => void;
+  setActiveFolder?: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-export default function Item({ item, deleteItem }: Props) {
+export default function Item({ item, deleteItem, setActiveFolder }: Props) {
   const handleDeleteAllItems = (id: string) => {
     if (confirm("Do you really want to delete item?") == true) {
       deleteItem(id);
+      if (setActiveFolder !== undefined) {
+        setActiveFolder(undefined);
+      }
     }
   };
 

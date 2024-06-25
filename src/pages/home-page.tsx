@@ -25,18 +25,9 @@ export default function HomePage() {
   const pinnedItems = localItems.filter((item) => item.pinned);
   const unPinnedItems = localItems.filter((item) => !item.pinned);
 
-  const getFilteredItems = () => {
-    if (activeFolder === "All" || activeFolder === undefined) {
-      return unPinnedItems;
-    } else {
-      const result = unPinnedItems.filter(
-        (item) => item.folder === activeFolder
-      );
-      return result;
-    }
-  };
-
-  const filteredItems = getFilteredItems();
+  const filteredItems = localItems.filter(
+    (item) => item.folder === activeFolder
+  );
 
   return (
     <>
@@ -51,31 +42,56 @@ export default function HomePage() {
       </>
 
       <section className="px-4">
-        <>
-          {pinnedItems.length > 0 && (
-            <>
-              <p className="text-gray-400">Pinned items</p>
-              <div className="flex flex-col gap-2">
-                {pinnedItems.map((item) => (
-                  <Item key={item.id} item={item} deleteItem={deleteItem} />
-                ))}
-              </div>
-            </>
-          )}
-        </>
+        {activeFolder === "All" || activeFolder === undefined ? (
+          <>
+            {pinnedItems.length > 0 && (
+              <>
+                <p className="text-gray-400">Pinned items</p>
+                <div className="flex flex-col gap-2">
+                  {pinnedItems.map((item) => (
+                    <Item
+                      key={item.id}
+                      item={item}
+                      deleteItem={deleteItem}
+                      setActiveFolder={setActiveFolder}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
 
-        <>
-          {unPinnedItems.length > 0 && (
-            <>
-              <p className="text-gray-400">Unpinned items</p>
+            {unPinnedItems.length > 0 && (
+              <>
+                <p className="mt-6 text-gray-400">Other items</p>
+                <div className="flex flex-col gap-2">
+                  {unPinnedItems.map((item) => (
+                    <Item
+                      key={item.id}
+                      item={item}
+                      deleteItem={deleteItem}
+                      setActiveFolder={setActiveFolder}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {filteredItems.length > 0 && (
               <div className="flex flex-col gap-2">
                 {filteredItems.map((item) => (
-                  <Item key={item.id} item={item} deleteItem={deleteItem} />
+                  <Item
+                    key={item.id}
+                    item={item}
+                    deleteItem={deleteItem}
+                    setActiveFolder={setActiveFolder}
+                  />
                 ))}
               </div>
-            </>
-          )}
-        </>
+            )}
+          </>
+        )}
       </section>
     </>
   );
