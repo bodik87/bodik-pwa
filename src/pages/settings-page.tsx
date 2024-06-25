@@ -41,24 +41,28 @@ export default function SettingsPage() {
 
   return (
     <section className="px-4">
-      <h2>Settings Page</h2>
+      <p className="text-gray-400">Settings</p>
 
-      {!userForm && (
-        <button
-          type="submit"
-          disabled={!isOnline || localItems.length === 0}
-          onClick={handleUpload}
-          className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
-        >
-          {!isOnline ? (
-            <>
-              <CloudOff />
-              No internet connection!
-            </>
-          ) : (
-            <>Upload to database</>
+      {localItems.length !== 0 && (
+        <>
+          {!userForm && (
+            <button
+              type="submit"
+              disabled={!isOnline || localItems.length === 0}
+              onClick={handleUpload}
+              className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+            >
+              {!isOnline ? (
+                <>
+                  <CloudOff />
+                  No internet connection!
+                </>
+              ) : (
+                <>Upload to database</>
+              )}
+            </button>
           )}
-        </button>
+        </>
       )}
 
       {userForm && (
@@ -106,7 +110,7 @@ export default function SettingsPage() {
         <button
           type="button"
           onClick={handleDeleteAllItems}
-          className={`mt-4 w-full px-3 py-2 rounded bg-red-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+          className={`mt-20 w-fit px-3 py-2 rounded bg-red-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
         >
           Delete all items
         </button>

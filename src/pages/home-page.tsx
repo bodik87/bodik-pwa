@@ -6,8 +6,8 @@ export default function HomePage() {
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
 
   return (
-    <>
+    <section className="px-4">
       <LocalItems localItems={localItems} setLocalItems={setLocalItems} />
-    </>
+    </section>
   );
 }

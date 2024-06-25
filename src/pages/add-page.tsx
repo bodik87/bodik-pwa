@@ -23,8 +23,10 @@ export default function AddPage() {
   }
 
   return (
-    <>
-      <form className="wrapper px-4" onSubmit={(e) => createLocalItem(e)}>
+    <section className="px-4">
+      <p className="text-gray-400">Add new item</p>
+
+      <form className="mt-4" onSubmit={(e) => createLocalItem(e)}>
         <input
           type="text"
           value={name}
@@ -43,6 +45,6 @@ export default function AddPage() {
           Save
         </button>
       </form>
-    </>
+    </section>
   );
 }

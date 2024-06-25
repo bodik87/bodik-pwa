@@ -21,7 +21,7 @@ export default function LocalItems({ localItems, setLocalItems }: Props) {
           ))}
         </>
       ) : (
-        <p className="px-4 text-gray-400">No local items</p>
+        <p className="text-gray-400">No items</p>
       )}
     </>
   );

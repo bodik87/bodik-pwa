@@ -8,24 +8,27 @@ export default function BottomPanel() {
   const settingsPage = location.pathname === routes.settings;
 
   return (
-    <footer className="fixed bottom-0 inset-x-0 max-w-md mx-auto h-14 border-t sm:border-none bg-white/25 backdrop-blur-xl">
-      <div className="flex justify-around items-center z-10">
-        <Link to={routes.home} className={`bottom_btn`}>
-          <Home
-            className={`${homePage ? "stroke-black" : "stroke-gray-600"}`}
-          />
-        </Link>
+    <>
+      <div className="fixed bottom-[55px] inset-x-0 max-w-md mx-auto h-px bg-gradient-to-r from-white via-transparent to-white z-10" />
+      <footer className="fixed bottom-0 inset-x-0 max-w-md mx-auto h-14 border-t bg-white/15 backdrop-blur-2xl">
+        <div className="flex justify-around items-center z-10">
+          <Link to={routes.home} className={`bottom_btn`}>
+            <Home
+              className={`${homePage ? "stroke-black" : "stroke-gray-600"}`}
+            />
+          </Link>
 
-        <Link to={routes.addPage} className={`bottom_btn`}>
-          <Plus />
-        </Link>
+          <Link to={routes.addPage} className={`bottom_btn`}>
+            <Plus />
+          </Link>
 
-        <Link to={routes.settings} className={`bottom_btn`}>
-          <Settings
-            className={`${settingsPage ? "stroke-black" : "stroke-gray-600"}`}
-          />
-        </Link>
-      </div>
-    </footer>
+          <Link to={routes.settings} className={`bottom_btn`}>
+            <Settings
+              className={`${settingsPage ? "stroke-black" : "stroke-gray-600"}`}
+            />
+          </Link>
+        </div>
+      </footer>
+    </>
   );
 }
