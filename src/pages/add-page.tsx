@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 export default function AddPage() {
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
   const [name, setName] = useState("");
+  const [folder, setFolder] = useState("");
+  const [checked, setChacked] = useState(false);
   const navigate = useNavigate();
 
-  const newItem = { id: uuidv4(), name };
+  const newItem = { id: uuidv4(), name, folder, pinned: checked };
 
   function createLocalItem(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,6 +38,27 @@ export default function AddPage() {
           className="outline-none w-full text-xl"
           placeholder="Enter name..."
         />
+        <input
+          type="text"
+          value={folder}
+          spellCheck="false"
+          onChange={(e) => setFolder(e.target.value)}
+          className="mt-4 outline-none w-full"
+          placeholder="Enter folder..."
+        />
+        <div className="mt-4 flex items-center gap-3">
+          <input
+            id="pin"
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => setChacked(e.target.checked)}
+            className="outline-none"
+            placeholder="Enter folder..."
+          />
+          <label htmlFor="pin" className="w-full">
+            Pinned
+          </label>
+        </div>
 
         <button
           type="submit"

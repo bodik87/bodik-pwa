@@ -14,16 +14,17 @@ export default function Item({ item, deleteItem }: Props) {
   };
 
   return (
-    <div key={item.id} className="w-full">
-      <div className="wrapper py-2 px-4 flex items-center justify-between gap-2">
+    <div className="w-full py-2 flex items-center justify-between gap-2">
+      <div>
         <p>{item.name}</p>
-        <button
-          onClick={() => handleDeleteAllItems(item.id)}
-          className="text-red-600"
-        >
-          <Trash />
-        </button>
+        <div className="text-xs text-gray-400">{item.folder}</div>
       </div>
+      <button
+        onClick={() => handleDeleteAllItems(item.id)}
+        className="text-red-600"
+      >
+        <Trash />
+      </button>
     </div>
   );
 }
