@@ -30,7 +30,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
 
   const handleOpen = async () => {
     const xStart = typeof x.get() === "number" ? x.get() : 0;
-    animate("#drawer", { x: [xStart, -100] });
+    animate("#drawer", { x: [xStart, -50] });
   };
 
   const handleClose = async () => {
@@ -45,13 +45,8 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
         drag="x"
         style={{ x }}
         dragControls={controls}
-        dragConstraints={{ right: 0, left: -100 }}
-        dragElastic={{ left: 0.02, right: 0.02 }}
-        onClick={() => {
-          if (x.get() <= -90) {
-            handleClose();
-          }
-        }}
+        dragConstraints={{ right: 0, left: -50 }}
+        dragElastic={{ left: 0.05, right: 0.05 }}
         onDragEnd={() => {
           if (x.get() <= -50) {
             handleOpen();
@@ -67,15 +62,12 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
         </div>
       </motion.div>
 
-      <div className="bg-gradient-to-r from-white to-gray-100 w-full rounded-xl flex justify-end items-center">
+      <div className="bg-gradient-to-r from-transparent to-gray-100 w-full rounded-xl flex justify-end items-center">
         <button
           onClick={() => handleDeleteAllItems(item.id)}
           className="text-red-600 flex justify-center items-center w-[50px] h-[65px]"
         >
           <Trash />
-        </button>
-        <button className="text-yellow-400 flex justify-center items-center w-[50px] h-[65px]">
-          <Pen />
         </button>
       </div>
     </div>

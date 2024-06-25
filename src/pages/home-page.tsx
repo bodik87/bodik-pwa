@@ -41,13 +41,13 @@ export default function HomePage() {
         )}
       </>
 
-      <section className="px-4">
+      <section className="px-4 mt-4">
         {activeFolder === "All" || activeFolder === undefined ? (
           <>
             {pinnedItems.length > 0 && (
               <>
-                <p className="text-gray-400">Pinned items</p>
-                <div className="flex flex-col gap-2">
+                <p className="pl-2.5 text-gray-400 text-sm">Pinned items</p>
+                <div className="mt-1 flex flex-col gap-1.5">
                   {pinnedItems.map((item) => (
                     <Item
                       key={item.id}
@@ -63,9 +63,11 @@ export default function HomePage() {
             {unPinnedItems.length > 0 && (
               <>
                 {pinnedItems.length > 0 && (
-                  <p className="mt-6 text-gray-400">Other items</p>
+                  <p className="mt-6 pl-2.5 text-gray-400 text-sm">
+                    Other items
+                  </p>
                 )}
-                <div className="flex flex-col gap-2">
+                <div className="mt-1 flex flex-col gap-1.5">
                   {unPinnedItems.map((item) => (
                     <Item
                       key={item.id}

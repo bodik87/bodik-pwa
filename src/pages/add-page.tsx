@@ -26,8 +26,6 @@ export default function AddPage() {
 
   return (
     <section className="px-4">
-      <p className="text-gray-400">Add new item</p>
-
       <form className="mt-4" onSubmit={(e) => createLocalItem(e)}>
         <input
           type="text"
@@ -35,15 +33,15 @@ export default function AddPage() {
           autoFocus
           spellCheck="false"
           onChange={(e) => setName(e.target.value)}
-          className="outline-none w-full text-xl"
-          placeholder="Enter name..."
+          className="outline-none w-full text-xl bg-transparent"
+          placeholder="Enter title..."
         />
         <input
           type="text"
           value={folder}
           spellCheck="false"
           onChange={(e) => setFolder(e.target.value)}
-          className="mt-4 outline-none w-full"
+          className="mt-4 outline-none w-full bg-transparent"
           placeholder="Enter folder..."
         />
         <div className="mt-4 flex items-center gap-3">

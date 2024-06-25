@@ -36,7 +36,7 @@ export default function SearchPage() {
 
   return (
     <section className="px-4">
-      <div className="w-full flex items-center gap-4">
+      <div className="w-full flex items-center gap-4 mb-4">
         <button onClick={goBack}>
           <ArrowLeft />
         </button>

@@ -34,7 +34,7 @@ export default function Folders({
     <>
       <div
         ref={divRef}
-        className="pb-4 max-w-xl mx-auto w-full relative overflow-hidden rounded-full"
+        className="py-4 max-w-xl mx-auto w-full relative overflow-hidden rounded-full"
       >
         <motion.div
           drag="x"
@@ -50,7 +50,7 @@ export default function Folders({
               className={`${
                 activeFolder === folder && activeFolder !== "All"
                   ? "bg-black text-white"
-                  : "bg-neutral-100"
+                  : "bg-neutral-200/80"
               }  rounded-md px-3 py-1.5 whitespace-nowrap`}
             >
               {folder}

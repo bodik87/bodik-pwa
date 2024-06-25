@@ -6,6 +6,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+body {
+  @apply bg-neutral-50;
+}
+
 .wrapper {
   @apply w-full max-w-md mx-auto;
 }
