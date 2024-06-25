@@ -62,7 +62,9 @@ export default function HomePage() {
 
             {unPinnedItems.length > 0 && (
               <>
-                <p className="mt-6 text-gray-400">Other items</p>
+                {pinnedItems.length > 0 && (
+                  <p className="mt-6 text-gray-400">Other items</p>
+                )}
                 <div className="flex flex-col gap-2">
                   {unPinnedItems.map((item) => (
                     <Item

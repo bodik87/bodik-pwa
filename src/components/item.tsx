@@ -1,4 +1,10 @@
-import { Trash } from "lucide-react";
+import {
+  motion,
+  useAnimate,
+  useDragControls,
+  useMotionValue,
+} from "framer-motion";
+import { Pen, Trash } from "lucide-react";
 import { ItemProps } from "../lib/types";
 
 type Props = {
@@ -17,18 +23,61 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
     }
   };
 
+  const [scope, animate] = useAnimate();
+
+  const x = useMotionValue(0);
+  const controls = useDragControls();
+
+  const handleOpen = async () => {
+    const xStart = typeof x.get() === "number" ? x.get() : 0;
+    animate("#drawer", { x: [xStart, -100] });
+  };
+
+  const handleClose = async () => {
+    const xStart = typeof x.get() === "number" ? x.get() : 0;
+    animate("#drawer", { x: [xStart, 0] });
+  };
+
   return (
-    <div className="w-full py-2 flex items-center justify-between gap-2">
-      <div>
-        <p>{item.name}</p>
-        <div className="text-xs text-gray-400">{item.folder}</div>
-      </div>
-      <button
-        onClick={() => handleDeleteAllItems(item.id)}
-        className="text-red-600"
+    <div ref={scope} className="relative">
+      <motion.div
+        id="drawer"
+        drag="x"
+        style={{ x }}
+        dragControls={controls}
+        dragConstraints={{ right: 0, left: -100 }}
+        dragElastic={{ left: 0.02, right: 0.02 }}
+        onClick={() => {
+          if (x.get() <= -90) {
+            handleClose();
+          }
+        }}
+        onDragEnd={() => {
+          if (x.get() <= -50) {
+            handleOpen();
+          } else {
+            handleClose();
+          }
+        }}
+        className="absolute top-0 w-full h-[65px] flex items-center justify-between gap-2 cursor-grab active:cursor-grabbing touch-none bg-white shadow-lg border rounded-xl z-40"
       >
-        <Trash />
-      </button>
+        <div className="pl-4">
+          <p>{item.name}</p>
+          <div className="text-xs text-gray-400">{item.folder}</div>
+        </div>
+      </motion.div>
+
+      <div className="bg-gradient-to-r from-white to-gray-100 w-full rounded-xl flex justify-end items-center">
+        <button
+          onClick={() => handleDeleteAllItems(item.id)}
+          className="text-red-600 flex justify-center items-center w-[50px] h-[65px]"
+        >
+          <Trash />
+        </button>
+        <button className="text-yellow-400 flex justify-center items-center w-[50px] h-[65px]">
+          <Pen />
+        </button>
+      </div>
     </div>
   );
 }
