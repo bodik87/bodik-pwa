@@ -34,7 +34,7 @@ export default function Folders({
     <>
       <div
         ref={divRef}
-        className="py-4 max-w-xl mx-auto w-full relative overflow-hidden rounded-full"
+        className="py-4 max-w-xl mx-auto w-full relative overflow-hidden"
       >
         <motion.div
           drag="x"

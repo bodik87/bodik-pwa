@@ -27,9 +27,6 @@ export default function HomePage() {
 
   const [items, setItems] = useState(localItems);
 
-  console.log(items);
-  console.log(localItems);
-
   return (
     <>
       <>
