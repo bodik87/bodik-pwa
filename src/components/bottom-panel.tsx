@@ -8,7 +8,7 @@ export default function BottomPanel() {
   const settingsPage = location.pathname === routes.settings;
 
   return (
-    <footer className="fixed bottom-4 inset-x-4 max-w-md mx-auto h-14 bg-gray-100 rounded-full">
+    <footer className="fixed bottom-4 inset-x-4 max-w-md mx-auto h-14 border bg-white/25 backdrop-blur-xl rounded-full">
       <div className="flex justify-around items-center z-10">
         <Link
           to={routes.home}
