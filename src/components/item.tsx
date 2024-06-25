@@ -3,8 +3,9 @@ import {
   useAnimate,
   useDragControls,
   useMotionValue,
+  useTransform,
 } from "framer-motion";
-import { Pen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { ItemProps } from "../lib/types";
 
 type Props = {
@@ -37,6 +38,9 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
     const xStart = typeof x.get() === "number" ? x.get() : 0;
     animate("#drawer", { x: [xStart, 0] });
   };
+  const xInput = [-50, 0, 50];
+
+  const background = useTransform(x, xInput, ["#FEE2E2", "#FAFAFA", "#FAFAFA"]);
 
   return (
     <div ref={scope} className="relative">
@@ -62,14 +66,17 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
         </div>
       </motion.div>
 
-      <div className="bg-gradient-to-r from-transparent to-gray-100 w-full rounded-xl flex justify-end items-center">
+      <motion.div
+        style={{ background }}
+        className="w-full rounded-xl flex justify-end items-center"
+      >
         <button
           onClick={() => handleDeleteAllItems(item.id)}
           className="text-red-600 flex justify-center items-center w-[50px] h-[65px]"
         >
           <Trash />
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 }
