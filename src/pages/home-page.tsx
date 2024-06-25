@@ -3,7 +3,6 @@ import { ItemProps } from "../lib/types";
 import Item from "../components/item";
 import Folders from "../components/folders";
 import { useState } from "react";
-import { Reorder } from "framer-motion";
 
 export default function HomePage() {
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
@@ -22,10 +21,7 @@ export default function HomePage() {
   ].filter((item) => item);
 
   const folders = ["All", ...uniqueFolders];
-
   const pinnedItems = localItems.filter((item) => item.pinned);
-
-  const [items, setItems] = useState(localItems);
 
   return (
     <>
@@ -66,35 +62,16 @@ export default function HomePage() {
                   </p>
                 )}
                 <div className="mt-1 flex flex-col gap-1.5">
-                  <Reorder.Group
-                    className="mt-1 flex flex-col gap-1.5"
-                    axis="y"
-                    values={items}
-                    layoutScroll
-                    onReorder={setItems}
-                  >
-                    {items
-                      .filter((item) => !item.pinned)
-                      .map((item) => (
-                        <Reorder.Item
-                          key={item.id}
-                          value={item}
-                          id={item.id}
-                          dragElastic={{ top: 0.01, bottom: 0.01 }}
-                          dragConstraints={{ top: -40, bottom: 40 }}
-                          onDragEnd={() =>
-                            setLocalItems([...pinnedItems, ...items])
-                          }
-                          style={{ position: "relative" }}
-                        >
-                          <Item
-                            item={item}
-                            deleteItem={deleteItem}
-                            setActiveFolder={setActiveFolder}
-                          />
-                        </Reorder.Item>
-                      ))}
-                  </Reorder.Group>
+                  {localItems
+                    .filter((item) => !item.pinned)
+                    .map((item) => (
+                      <Item
+                        key={item.id}
+                        item={item}
+                        deleteItem={deleteItem}
+                        setActiveFolder={setActiveFolder}
+                      />
+                    ))}
                 </div>
               </>
             )}
