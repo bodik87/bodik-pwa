@@ -35,8 +35,8 @@ export default function SearchPage() {
         );
 
   return (
-    <section className="px-4">
-      <div className="w-full flex items-center gap-4 mb-4">
+    <section>
+      <div className="px-4 w-full flex items-center gap-4 mb-4">
         <button onClick={goBack}>
           <ArrowLeft />
         </button>
@@ -51,7 +51,7 @@ export default function SearchPage() {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
         {filteredItems.map((item) => (
           <Item key={item.id} item={item} deleteItem={deleteItem} />
         ))}

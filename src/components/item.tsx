@@ -40,12 +40,13 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
   };
   const xInput = [-50, 0, 50];
 
-  const background = useTransform(x, xInput, ["#FAFAFA", "#FFF", "#FAFAFA"]);
+  const background = useTransform(x, xInput, ["#E5E7EB", "#FFF", "#FAFAFA"]);
+  // const radius = useTransform(x, xInput, ["8px", "0px", "8px"]);
 
   return (
     <div
       ref={scope}
-      className="relative first:rounded-t-xl overflow-hidden last:rounded-b-xl first:border-t border-b border-x"
+      className="relative overflow-hidden first:border-t border-b"
     >
       <motion.div
         id="drawer"
@@ -75,9 +76,9 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
       >
         <button
           onClick={() => handleDeleteItems(item.id)}
-          className="text-red-600 flex justify-center items-center w-[50px] h-[65px]"
+          className="text-red-400 flex justify-center items-center w-[50px] h-[65px]"
         >
-          <Trash />
+          <Trash size={22} />
         </button>
       </motion.div>
     </div>

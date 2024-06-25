@@ -4,7 +4,7 @@ import BottomPanel from "./bottom-panel";
 
 export default function Layout() {
   return (
-    <main className="wrapper pt-4 pb-20 flex flex-col">
+    <main className="wrapper pt-4 pb-[55px] flex flex-col">
       <Header />
       <Outlet />
       <BottomPanel />
