@@ -35,7 +35,7 @@ export default function HomePage() {
         )}
       </>
 
-      <section className="mt-4">
+      <section className="mt-3 px-2">
         {activeFolder === "All" || activeFolder === undefined ? (
           <>
             {pinnedItems.length > 0 && (
@@ -57,11 +57,11 @@ export default function HomePage() {
             {localItems.filter((item) => !item.pinned).length > 0 && (
               <>
                 {pinnedItems.length > 0 && (
-                  <p className="mt-4 pl-2.5 text-gray-400 text-sm">
+                  <p className="mt-3 pl-2.5 text-gray-400 text-sm">
                     Other items
                   </p>
                 )}
-                <div className="mt-1 flex flex-col">
+                <div className="mt-1 grid grid-cols-2 gap-px">
                   {localItems
                     .filter((item) => !item.pinned)
                     .map((item) => (

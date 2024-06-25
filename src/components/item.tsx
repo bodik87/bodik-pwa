@@ -40,14 +40,11 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
   };
   const xInput = [-50, 0, 50];
 
-  const background = useTransform(x, xInput, ["#E5E7EB", "#FFF", "#FAFAFA"]);
+  const background = useTransform(x, xInput, ["#EFF0F2", "#FFF", "#FAFAFA"]);
   // const radius = useTransform(x, xInput, ["8px", "0px", "8px"]);
 
   return (
-    <div
-      ref={scope}
-      className="relative overflow-hidden first:border-t border-b"
-    >
+    <div ref={scope} className="relative">
       <motion.div
         id="drawer"
         drag="x"
@@ -62,7 +59,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
             handleClose();
           }
         }}
-        className="absolute top-0 w-full h-[65px] flex items-center justify-between gap-2 cursor-grab active:cursor-grabbing touch-none bg-white z-40"
+        className="absolute top-0 w-full h-[65px] flex items-center justify-between gap-2 cursor-grab active:cursor-grabbing rounded border touch-none bg-white z-40"
       >
         <div className="pl-4">
           <p>{item.name}</p>
@@ -72,7 +69,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
 
       <motion.div
         style={{ background }}
-        className="w-full flex justify-end items-center"
+        className="w-full flex justify-end items-center rounded-r"
       >
         <button
           onClick={() => handleDeleteItems(item.id)}
