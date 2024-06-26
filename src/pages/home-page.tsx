@@ -12,8 +12,8 @@ export default function HomePage() {
   );
 
   const uniqueFolders = [
-    ...new Set(localItems.map((item) => item.folder)),
-  ].filter((item) => item);
+    ...new Set(localItems.map((item) => item.folder as string)),
+  ].filter((item) => item as string);
 
   const folders = ["All", ...uniqueFolders];
   const pinnedItems = localItems.filter((item) => item.pinned);
