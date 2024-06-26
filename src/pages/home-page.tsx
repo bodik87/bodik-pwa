@@ -36,10 +36,25 @@ export default function HomePage() {
             {pinnedItems.length > 0 && (
               <>
                 <p className="pl-2.5 text-gray-400 text-sm">Pinned items</p>
-                <div className="mt-1 flex flex-col gap-1.5">
-                  {pinnedItems.map((item) => (
-                    <Item key={item.id} item={item} />
-                  ))}
+                <div className="mt-1 grid grid-cols-2 gap-1.5">
+                  <div className="flex flex-col gap-1.5">
+                    {pinnedItems
+                      .filter((_, index) => {
+                        return index % 2 === 0;
+                      })
+                      .map((item) => (
+                        <Item key={item.id} item={item} />
+                      ))}
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {pinnedItems
+                      .filter((_, index) => {
+                        return index % 2 !== 0;
+                      })
+                      .map((item) => (
+                        <Item key={item.id} item={item} />
+                      ))}
+                  </div>
                 </div>
               </>
             )}

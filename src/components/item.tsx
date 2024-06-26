@@ -7,11 +7,12 @@ export default function Item({ item }: Props) {
   return (
     <Link
       to={`/item/${item.id}`}
-      className="flex items-center justify-between h-[60px] gap-2 rounded-md border shadow-lg bg-white z-40"
+      className="flex justify-between max-h-[200px] h-fit rounded-md border shadow-lg bg-white z-40"
     >
-      <div className="pl-4">
+      <div className="p-3 pt-2">
         <p>{item.title ? item.title : item.body}</p>
-        <div className="text-xs text-gray-400">{item.folder}</div>
+        <small>{item.body.slice(0, 100)}</small>
+        <div className="mt-2 text-xs text-gray-400">{item.folder}</div>
       </div>
     </Link>
   );
