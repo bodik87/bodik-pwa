@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Button } from "@nextui-org/button";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
+import { Textarea } from "@nextui-org/input";
 
 export default function ItemPage() {
   const { id } = useParams();
@@ -75,14 +76,16 @@ export default function ItemPage() {
             className="outline-none w-full text-xl bg-transparent"
             placeholder="Title"
           />
-          <textarea
+          <Textarea
+            variant="bordered"
+            label="Note"
             value={body}
             spellCheck="false"
             autoFocus
-            rows={8}
             onChange={(e) => setBody(e.target.value)}
-            className="mt-4 p-3 rounded-lg bg-white shadow-lg outline-none w-full bg-transparent scroll_textarea resize-none"
             placeholder="Enter text..."
+            size="lg"
+            className="mt-4 !scroll_textarea bg-white rounded-xl"
           />
 
           <Autocomplete
