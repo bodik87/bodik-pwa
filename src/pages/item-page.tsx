@@ -1,15 +1,14 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import { ItemProps } from "../lib/types";
 import { useState } from "react";
 import { Checkbox } from "@nextui-org/checkbox";
 import { Button } from "@nextui-org/button";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
 export default function ItemPage() {
-  const location = useLocation();
   const { id } = useParams();
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
-  const [folderList, setFolderList] = useState(false);
 
   const item = localItems.filter((el) => el.id === id)[0];
 
@@ -18,6 +17,15 @@ export default function ItemPage() {
   const [folder, setFolder] = useState(item.folder);
   const [checked, setChacked] = useState(item.pinned);
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSelectionChange = (id: any) => {
+    setFolder(id);
+  };
+
+  const onInputChange = (value: string) => {
+    setFolder(value);
+  };
 
   const updatedItem = {
     id: id as string,
@@ -53,21 +61,7 @@ export default function ItemPage() {
     }
   };
 
-  const uniqueFolders = [
-    ...new Set(localItems.map((item) => item.folder as string)),
-  ].filter((item) => item as string);
-
-  const filteredFolders =
-    folder === ""
-      ? uniqueFolders
-      : uniqueFolders.filter((el) =>
-          el
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(folder!.toLowerCase().replace(/\s+/g, ""))
-        );
-
-  const editMode = location.pathname.includes("/item");
+  const uniqueFolders = [...new Set(localItems.filter((item) => item.folder))];
 
   return (
     <>
@@ -84,43 +78,28 @@ export default function ItemPage() {
           <textarea
             value={body}
             spellCheck="false"
-            autoFocus={editMode ? false : true}
+            autoFocus
             rows={8}
             onChange={(e) => setBody(e.target.value)}
             className="mt-4 p-3 rounded-lg bg-white shadow-lg outline-none w-full bg-transparent scroll_textarea resize-none"
             placeholder="Enter text..."
           />
-          <div className="relative">
-            <input
-              type="text"
-              value={folder}
-              spellCheck="false"
-              onChange={(e) => setFolder(e.target.value)}
-              className="mt-4 outline-none w-full bg-transparent"
-              placeholder="Enter folder..."
-              onClick={() => setFolderList(true)}
-            />
 
-            <div className="absolute left-0 -bottom-2 translate-y-full bg-white shadow-lg max-w-[200px] w-full rounded-md">
-              {folderList && (
-                <>
-                  {filteredFolders.map((folder) => (
-                    <button
-                      type="button"
-                      key={folder}
-                      onClick={() => {
-                        setFolder(folder);
-                        setFolderList(false);
-                      }}
-                      className="flex w-full py-1 px-2"
-                    >
-                      {folder}
-                    </button>
-                  ))}
-                </>
-              )}
-            </div>
-          </div>
+          <Autocomplete
+            allowsCustomValue
+            label="Folder"
+            variant="faded"
+            className="mt-4 flex max-w-52"
+            description="Add new folrer or select existed"
+            defaultItems={uniqueFolders}
+            onSelectionChange={onSelectionChange}
+            onInputChange={onInputChange}
+          >
+            {(item) => (
+              <AutocompleteItem key={item.id}>{item.folder}</AutocompleteItem>
+            )}
+          </Autocomplete>
+
           <Checkbox
             checked={checked}
             onChange={(e) => setChacked(e.target.checked)}

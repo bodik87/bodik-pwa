@@ -9,13 +9,21 @@ import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
 export default function AddPage() {
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
-  const [folderList, setFolderList] = useState(false);
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [folder, setFolder] = useState("");
   const [checked, setChacked] = useState(false);
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSelectionChange = (id: any) => {
+    setFolder(id);
+  };
+
+  const onInputChange = (value: string) => {
+    setFolder(value);
+  };
 
   const newItem = { id: uuidv4(), title, body, folder, pinned: checked };
 
@@ -34,16 +42,6 @@ export default function AddPage() {
   }
 
   const uniqueFolders = [...new Set(localItems.filter((item) => item.folder))];
-
-  const filteredFolders =
-    folder === ""
-      ? uniqueFolders
-      : uniqueFolders.filter((el) =>
-          el
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(folder.toLowerCase().replace(/\s+/g, ""))
-        );
 
   return (
     <section className="px-4">
@@ -73,6 +71,8 @@ export default function AddPage() {
           className="mt-4 flex max-w-52"
           description="Add new folrer or select existed"
           defaultItems={uniqueFolders}
+          onSelectionChange={onSelectionChange}
+          onInputChange={onInputChange}
         >
           {(item) => (
             <AutocompleteItem key={item.id}>{item.folder}</AutocompleteItem>
