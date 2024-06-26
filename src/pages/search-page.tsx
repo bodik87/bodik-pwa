@@ -9,21 +9,16 @@ export default function SearchPage() {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 
-  const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
+  const [localItems] = useLocalStorage<ItemProps[]>("items", []);
 
   const [query, setQury] = useState("");
-
-  const deleteItem = (id: string) => {
-    const filteredValue = localItems.filter((item) => item.id !== id);
-    setLocalItems(filteredValue);
-  };
 
   const filteredItems =
     query === ""
       ? localItems
       : localItems.filter(
           (item: ItemProps) =>
-            item.name
+            item.body
               .toLowerCase()
               .replace(/\s+/g, "")
               .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -53,7 +48,7 @@ export default function SearchPage() {
 
       <div className="flex flex-col">
         {filteredItems.map((item) => (
-          <Item key={item.id} item={item} deleteItem={deleteItem} />
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </section>

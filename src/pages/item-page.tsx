@@ -41,6 +41,14 @@ export default function ItemPage() {
     setChacked(false);
   }
 
+  const deleteItem = (id: string) => {
+    if (confirm("Do you really want to delete item?") == true) {
+      const filteredValue = localItems.filter((item) => item.id !== id);
+      setLocalItems(filteredValue);
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <section className="px-4">
@@ -97,6 +105,14 @@ export default function ItemPage() {
             Save
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={() => deleteItem(item.id)}
+          className={`mt-4 w-full px-3 py-2 rounded bg-red-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+        >
+          Delete
+        </button>
       </section>
     </>
   );

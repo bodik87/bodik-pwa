@@ -5,12 +5,7 @@ import Folders from "../components/folders";
 import { useState } from "react";
 
 export default function HomePage() {
-  const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
-
-  const deleteItem = (id: string) => {
-    const filteredValue = localItems.filter((item) => item.id !== id);
-    setLocalItems(filteredValue);
-  };
+  const [localItems] = useLocalStorage<ItemProps[]>("items", []);
 
   const [activeFolder, setActiveFolder] = useState<string | undefined>(
     undefined
@@ -43,12 +38,7 @@ export default function HomePage() {
                 <p className="pl-2.5 text-gray-400 text-sm">Pinned items</p>
                 <div className="mt-1 flex flex-col gap-1.5">
                   {pinnedItems.map((item) => (
-                    <Item
-                      key={item.id}
-                      item={item}
-                      deleteItem={deleteItem}
-                      setActiveFolder={setActiveFolder}
-                    />
+                    <Item key={item.id} item={item} />
                   ))}
                 </div>
               </>
@@ -65,12 +55,7 @@ export default function HomePage() {
                   {localItems
                     .filter((item) => !item.pinned)
                     .map((item) => (
-                      <Item
-                        key={item.id}
-                        item={item}
-                        deleteItem={deleteItem}
-                        setActiveFolder={setActiveFolder}
-                      />
+                      <Item key={item.id} item={item} />
                     ))}
                 </div>
               </>
@@ -84,12 +69,7 @@ export default function HomePage() {
                 {localItems
                   .filter((item) => item.folder === activeFolder)
                   .map((item) => (
-                    <Item
-                      key={item.id}
-                      item={item}
-                      deleteItem={deleteItem}
-                      setActiveFolder={setActiveFolder}
-                    />
+                    <Item key={item.id} item={item} />
                   ))}
               </div>
             )}
