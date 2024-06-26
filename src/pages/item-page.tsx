@@ -1,9 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import { ItemProps } from "../lib/types";
 import { useState } from "react";
 
 export default function ItemPage() {
+  const location = useLocation();
   const { id } = useParams();
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
   const [folderList, setFolderList] = useState(false);
@@ -64,15 +65,12 @@ export default function ItemPage() {
             .includes(folder!.toLowerCase().replace(/\s+/g, ""))
         );
 
+  const editMode = location.pathname.includes("/item");
+
   return (
     <>
       <section className="px-4">
-        <form
-          className="mt-4"
-          onSubmit={(e) => {
-            updateItem(e);
-          }}
-        >
+        <form className="mt-4" onSubmit={(e) => updateItem(e)}>
           <input
             type="text"
             value={title}
@@ -84,7 +82,7 @@ export default function ItemPage() {
           <textarea
             value={body}
             spellCheck="false"
-            autoFocus
+            autoFocus={editMode ? false : true}
             rows={8}
             onChange={(e) => setBody(e.target.value)}
             className="mt-4 p-3 rounded-lg bg-white shadow-lg outline-none w-full bg-transparent scroll_textarea resize-none"
