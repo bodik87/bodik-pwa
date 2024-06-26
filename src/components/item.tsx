@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import { Trash } from "lucide-react";
 import { ItemProps } from "../lib/types";
+import { Link } from "react-router-dom";
 
 type Props = {
   item: ItemProps;
@@ -44,7 +45,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
   // const radius = useTransform(x, xInput, ["8px", "0px", "8px"]);
 
   return (
-    <div ref={scope} className="relative">
+    <Link to={`/item/${item.id}`} ref={scope} className="relative">
       <motion.div
         id="drawer"
         drag="x"
@@ -62,7 +63,7 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
         className="absolute top-0 w-full h-[65px] flex items-center justify-between gap-2 cursor-grab active:cursor-grabbing rounded border touch-none shadow-lg bg-white z-40"
       >
         <div className="pl-4">
-          <p>{item.name}</p>
+          <p>{item.title ? item.title : item.body}</p>
           <div className="text-xs text-gray-400">{item.folder}</div>
         </div>
       </motion.div>
@@ -78,6 +79,6 @@ export default function Item({ item, deleteItem, setActiveFolder }: Props) {
           <Trash size={22} />
         </button>
       </motion.div>
-    </div>
+    </Link>
   );
 }

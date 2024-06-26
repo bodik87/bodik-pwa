@@ -1,6 +1,7 @@
 export type ItemProps = {
   id: string;
-  name: string;
+  title?: string;
+  body: string;
   folder?: string;
   pinned?: boolean;
 };

@@ -7,10 +7,12 @@ import ErrorPage from "./pages/error-page.tsx";
 import SearchPage from "./pages/search-page.tsx";
 import SettingsPage from "./pages/settings-page.tsx";
 import "./index.css";
+import ItemPage from "./pages/item-page.tsx";
 
 export const routes = {
   home: "/",
   addPage: "/add",
+  item: "/item/:id",
   settings: "/settings",
   search: "/search",
   any: "*",
@@ -21,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path={routes.home} element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route path={routes.item} element={<ItemPage />} />
         <Route path={routes.settings} element={<SettingsPage />} />
         <Route path={routes.addPage} element={<AddPage />} />
         <Route path={routes.search} element={<SearchPage />} />
