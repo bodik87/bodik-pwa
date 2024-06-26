@@ -41,7 +41,7 @@ export default function HomePage() {
             {pinnedItems.length > 0 && (
               <>
                 <p className="pl-2.5 text-gray-400 text-sm">Pinned items</p>
-                <div className="mt-1 flex flex-col">
+                <div className="mt-1 flex flex-col gap-1.5">
                   {pinnedItems.map((item) => (
                     <Item
                       key={item.id}
@@ -61,7 +61,7 @@ export default function HomePage() {
                     Other items
                   </p>
                 )}
-                <div className="mt-1 grid grid-cols-2 gap-px">
+                <div className="mt-1 flex flex-col gap-1.5">
                   {localItems
                     .filter((item) => !item.pinned)
                     .map((item) => (
@@ -80,7 +80,7 @@ export default function HomePage() {
           <>
             {localItems.filter((item) => item.folder === activeFolder).length >
               0 && (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5">
                 {localItems
                   .filter((item) => item.folder === activeFolder)
                   .map((item) => (
