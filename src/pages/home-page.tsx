@@ -66,12 +66,27 @@ export default function HomePage() {
                     Other items
                   </p>
                 )}
-                <div className="mt-1 flex flex-col gap-1.5">
-                  {localItems
-                    .filter((item) => !item.pinned)
-                    .map((item) => (
-                      <Item key={item.id} item={item} />
-                    ))}
+                <div className="mt-1 grid grid-cols-2 gap-1.5">
+                  <div className="flex flex-col gap-1.5">
+                    {localItems
+                      .filter((item) => !item.pinned)
+                      .filter((_, index) => {
+                        return index % 2 === 0;
+                      })
+                      .map((item) => (
+                        <Item key={item.id} item={item} />
+                      ))}
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {localItems
+                      .filter((item) => !item.pinned)
+                      .filter((_, index) => {
+                        return index % 2 !== 0;
+                      })
+                      .map((item) => (
+                        <Item key={item.id} item={item} />
+                      ))}
+                  </div>
                 </div>
               </>
             )}
@@ -80,12 +95,27 @@ export default function HomePage() {
           <>
             {localItems.filter((item) => item.folder === activeFolder).length >
               0 && (
-              <div className="flex flex-col gap-1.5">
-                {localItems
-                  .filter((item) => item.folder === activeFolder)
-                  .map((item) => (
-                    <Item key={item.id} item={item} />
-                  ))}
+              <div className="grid grid-cols-2 gap-1.5">
+                <div className="flex flex-col gap-1.5">
+                  {localItems
+                    .filter((item) => item.folder === activeFolder)
+                    .filter((_, index) => {
+                      return index % 2 === 0;
+                    })
+                    .map((item) => (
+                      <Item key={item.id} item={item} />
+                    ))}
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  {localItems
+                    .filter((item) => item.folder === activeFolder)
+                    .filter((_, index) => {
+                      return index % 2 !== 0;
+                    })
+                    .map((item) => (
+                      <Item key={item.id} item={item} />
+                    ))}
+                </div>
               </div>
             )}
           </>
