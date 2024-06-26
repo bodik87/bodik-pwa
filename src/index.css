@@ -7,8 +7,9 @@
 }
 
 body {
-  @apply bg-neutral-100;
+  @apply bg-neutral-100 min-h-dvh;
 }
+
 .wrapper {
   @apply w-full max-w-md mx-auto;
 }
@@ -27,4 +28,12 @@ body {
 
 .scroll_textarea::-webkit-scrollbar-thumb {
   @apply md:bg-neutral-300 md:rounded-full;
+}
+
+button[data-pressed="true"] {
+  @apply !scale-100;
+}
+
+button[data-hover="true"] {
+  @apply hover:!bg-transparent;
 }
