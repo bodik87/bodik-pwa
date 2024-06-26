@@ -31,7 +31,7 @@ export default function SearchPage() {
 
   return (
     <section>
-      <div className="px-4 w-full flex items-center gap-4 mb-4">
+      <div className="pl-4 pr-2 w-full flex items-center gap-4 mb-4">
         <button onClick={goBack}>
           <ArrowLeft />
         </button>
@@ -46,7 +46,7 @@ export default function SearchPage() {
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="px-2 flex flex-col">
         {filteredItems.map((item) => (
           <Item key={item.id} item={item} />
         ))}

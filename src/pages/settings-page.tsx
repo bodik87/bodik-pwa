@@ -4,6 +4,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { ItemProps, UserProps } from "../lib/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@nextui-org/button";
 
 export default function SettingsPage() {
   const navigate = useNavigate();
@@ -40,17 +41,19 @@ export default function SettingsPage() {
   }
 
   return (
-    <section className="px-4">
-      <p className="text-gray-400">Settings</p>
-
+    <section className="mt-4 px-4">
       {localItems.length !== 0 && (
         <>
           {!userForm && (
-            <button
+            <Button
               type="submit"
               disabled={!isOnline || localItems.length === 0}
               onClick={handleUpload}
-              className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+              size="lg"
+              radius="sm"
+              fullWidth={true}
+              color="primary"
+              className="mt-4"
             >
               {!isOnline ? (
                 <>
@@ -60,7 +63,7 @@ export default function SettingsPage() {
               ) : (
                 <>Upload to database</>
               )}
-            </button>
+            </Button>
           )}
         </>
       )}
@@ -74,7 +77,7 @@ export default function SettingsPage() {
               autoFocus
               spellCheck="false"
               onChange={(e) => setLogin(e.target.value)}
-              className="outline-none w-full text-xl"
+              className="outline-none w-full text-xl bg-transparent"
               placeholder="Enter login..."
             />
 
@@ -84,14 +87,18 @@ export default function SettingsPage() {
               autoFocus
               spellCheck="false"
               onChange={(e) => setPassword(e.target.value)}
-              className="outline-none w-full text-xl"
+              className="mt-2 outline-none w-full text-xl bg-transparent"
               placeholder="Enter password..."
             />
 
-            <button
+            <Button
               type="submit"
-              disabled={!isOnline || !login || !password}
-              className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+              isDisabled={!isOnline || !login || !password}
+              size="lg"
+              radius="sm"
+              fullWidth={true}
+              color="primary"
+              className="mt-4"
             >
               {!isOnline ? (
                 <>
@@ -101,19 +108,22 @@ export default function SettingsPage() {
               ) : (
                 <>Upload to database</>
               )}
-            </button>
+            </Button>
           </form>
         </>
       )}
 
       {localItems.length !== 0 && (
-        <button
+        <Button
           type="button"
           onClick={handleDeleteAllItems}
-          className={`mt-20 w-fit px-3 py-2 rounded bg-red-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+          radius="sm"
+          fullWidth={true}
+          color="danger"
+          className="mt-4"
         >
           Delete all items
-        </button>
+        </Button>
       )}
     </section>
   );
