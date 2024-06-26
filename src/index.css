@@ -30,10 +30,10 @@ body {
   @apply md:bg-neutral-300 md:rounded-full;
 }
 
-button[data-pressed="true"] {
+button[data-pressed="true"].bottom-btn {
   @apply !scale-100;
 }
 
-button[data-hover="true"] {
+button[data-hover="true"].bottom-btn {
   @apply hover:!bg-transparent;
 }

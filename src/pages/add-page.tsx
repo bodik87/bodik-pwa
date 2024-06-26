@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import { ItemProps } from "../lib/types";
 import { useLocalStorage } from "usehooks-ts";
 import { useNavigate } from "react-router-dom";
+import { Checkbox } from "@nextui-org/checkbox";
+import { Button } from "@nextui-org/button";
+import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 
 export default function AddPage() {
   const [localItems, setLocalItems] = useLocalStorage<ItemProps[]>("items", []);
@@ -30,9 +33,7 @@ export default function AddPage() {
     setChacked(false);
   }
 
-  const uniqueFolders = [
-    ...new Set(localItems.map((item) => item.folder as string)),
-  ].filter((item) => item as string);
+  const uniqueFolders = [...new Set(localItems.filter((item) => item.folder))];
 
   const filteredFolders =
     folder === ""
@@ -64,58 +65,41 @@ export default function AddPage() {
           className="mt-4 p-3 rounded-lg bg-white shadow-lg outline-none w-full bg-transparent scroll_textarea resize-none"
           placeholder="Enter text..."
         />
-        <div className="relative">
-          <input
-            type="text"
-            value={folder}
-            spellCheck="false"
-            onChange={(e) => setFolder(e.target.value)}
-            className="mt-4 outline-none w-full bg-transparent"
-            placeholder="Enter folder..."
-            onClick={() => setFolderList(true)}
-          />
 
-          <div className="absolute left-0 -bottom-2 translate-y-full bg-white shadow-lg max-w-[200px] w-full rounded-md">
-            {folderList && (
-              <>
-                {filteredFolders.map((folder) => (
-                  <button
-                    type="button"
-                    key={folder}
-                    onClick={() => {
-                      setFolder(folder);
-                      setFolderList(false);
-                    }}
-                    className="flex w-full py-1 px-2"
-                  >
-                    {folder}
-                  </button>
-                ))}
-              </>
-            )}
-          </div>
-        </div>
-        <div className="mt-4 flex items-center gap-3">
-          <input
-            id="pin"
-            type="checkbox"
-            checked={checked}
-            onChange={(e) => setChacked(e.target.checked)}
-            className="outline-none"
-            placeholder="Enter folder..."
-          />
-          <label htmlFor="pin" className="w-full">
-            Pinned
-          </label>
-        </div>
+        <Autocomplete
+          allowsCustomValue
+          label="Folder"
+          variant="faded"
+          className="mt-4 flex max-w-52"
+          description="Add new folrer or select existed"
+          defaultItems={uniqueFolders}
+        >
+          {(item) => (
+            <AutocompleteItem key={item.id}>{item.folder}</AutocompleteItem>
+          )}
+        </Autocomplete>
 
-        <button
+        <Checkbox
+          checked={checked}
+          onChange={(e) => setChacked(e.target.checked)}
+          radius="full"
+          className="mt-2"
+          size="lg"
+        >
+          Pinned
+        </Checkbox>
+
+        <Button
           type="submit"
-          disabled={!body}
-          className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+          isDisabled={!body}
+          size="lg"
+          radius="sm"
+          fullWidth={true}
+          color="primary"
+          className="mt-4"
         >
           Save
-        </button>
+        </Button>
       </form>
     </section>
   );

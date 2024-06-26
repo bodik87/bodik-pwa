@@ -16,7 +16,7 @@ export default function BottomPanel() {
           radius="none"
           fullWidth={true}
           variant="light"
-          className="h-14"
+          className="h-14 bottom-btn"
           onClick={() => navigate(routes.home)}
         >
           <Home
@@ -28,7 +28,7 @@ export default function BottomPanel() {
           radius="none"
           fullWidth={true}
           variant="light"
-          className="h-14"
+          className="h-14 bottom-btn"
           onClick={() => navigate(routes.addPage)}
         >
           <Plus
@@ -40,7 +40,7 @@ export default function BottomPanel() {
           radius="none"
           fullWidth={true}
           variant="light"
-          className="h-14 hover:bg-transparent!"
+          className="h-14 bottom-btn"
           onClick={() => navigate(routes.settings)}
         >
           <Settings

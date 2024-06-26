@@ -2,6 +2,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import { ItemProps } from "../lib/types";
 import { useState } from "react";
+import { Checkbox } from "@nextui-org/checkbox";
+import { Button } from "@nextui-org/button";
 
 export default function ItemPage() {
   const location = useLocation();
@@ -119,36 +121,39 @@ export default function ItemPage() {
               )}
             </div>
           </div>
-          <div className="mt-4 flex items-center gap-3">
-            <input
-              id="pin"
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => setChacked(e.target.checked)}
-              className="outline-none"
-              placeholder="Enter folder..."
-            />
-            <label htmlFor="pin" className="w-full">
-              Pinned
-            </label>
-          </div>
+          <Checkbox
+            checked={checked}
+            onChange={(e) => setChacked(e.target.checked)}
+            radius="full"
+            className="mt-2"
+            size="lg"
+          >
+            Pinned
+          </Checkbox>
 
-          <button
+          <Button
             type="submit"
-            disabled={!body}
-            className={`mt-4 w-full px-3 py-2 rounded bg-orange-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+            isDisabled={!body}
+            size="lg"
+            radius="sm"
+            fullWidth={true}
+            color="primary"
+            className="mt-4"
           >
             Save
-          </button>
+          </Button>
         </form>
 
-        <button
+        <Button
           type="button"
           onClick={() => deleteItem(item.id)}
-          className={`mt-4 w-full px-3 py-2 rounded bg-red-600 disabled:bg-gray-400 text-white flex items-center justify-center gap-2`}
+          radius="sm"
+          fullWidth={true}
+          color="danger"
+          className="mt-4"
         >
           Delete
-        </button>
+        </Button>
       </section>
     </>
   );
