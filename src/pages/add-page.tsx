@@ -63,6 +63,7 @@ export default function AddPage() {
           autoFocus
           onChange={(e) => setBody(e.target.value)}
           placeholder="Enter text..."
+          size="lg"
           className="mt-4 !scroll_textarea bg-white rounded-xl"
         />
 
